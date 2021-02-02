@@ -1,0 +1,104 @@
+﻿<Window x:Class="Warcraft.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Warcraft"
+        mc:Ignorable="d"
+        Title="Информация о гильдии" Height="450" Width="800" ShowInTaskbar="False" ResizeMode="NoResize" Icon="icon1.ico">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="102"/>
+            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition Width="199*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl x:Name="tab_manu" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="792">
+            <TabItem Header="Гильдия">
+                <Grid Background="#FFE5E5E5" Margin="0,-6,0,0">
+                    <Label x:Name="guild_name_label" Content="Ожидайте ответа от сервера..." FontSize="22" Margin="0,0,386,353"/>
+                    <Label Content="Глава гильдии  :" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Height="29" Width="110"/>
+                    <Label x:Name="guild_master_label" Content="" HorizontalAlignment="Left" Margin="120,49,0,0" VerticalAlignment="Top" Height="29" Width="110"/>
+                    <DataGrid x:Name="guild_data_members" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="304" Margin="10,83,0,0" VerticalAlignment="Top" Width="390" ColumnWidth="*" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding Name}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Уровень" Binding="{Binding Level}"></DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Класс" Width="40
+">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Class}" Width="20" Height="20"></Image>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                            <DataGridTextColumn Header="Ранг" Binding="{Binding Rank}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Илвл" Binding="{Binding Ilvl}"></DataGridTextColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Content="Членов гильдии: " HorizontalAlignment="Left" Margin="218,49,0,0" VerticalAlignment="Top" Width="104"/>
+                    <Label x:Name="guild_members_count" Content="" HorizontalAlignment="Left" Margin="328,49,0,0" VerticalAlignment="Top" Width="72"/>
+                    <TextBox x:Name="guild_activity" HorizontalAlignment="Left" Height="304" Margin="424,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="352"/>
+                    <Label Content="Активность гильдии" HorizontalAlignment="Left" Margin="424,49,0,0" VerticalAlignment="Top" Width="352"/>
+                    <Button x:Name="Update_guild_info" Content="Обновить" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Width="75" Click="Update_guild_info_Click" IsEnabled="False"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Логи">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="203*"/>
+                        <ColumnDefinition Width="86*"/>
+                        <ColumnDefinition Width="497*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="logs_datagrid" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="352" Margin="0,29,0,0" VerticalAlignment="Top" Width="776" Grid.ColumnSpan="3" ColumnWidth="*">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Активность" Binding="{Binding Dungeon}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Начало" Binding="{Binding Date_start}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Конец" Binding="{Binding Date_end}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Загрузил" Binding="{Binding Downloader}"></DataGridTextColumn>
+                            <DataGridHyperlinkColumn Header="Ссылка" Binding="{Binding Link}">
+                                <DataGridHyperlinkColumn.ElementStyle>
+                                    <Style>
+                                        <EventSetter Event="Hyperlink.Click" Handler="DG_Hyperlink_Click"/>
+                                    </Style>
+                                </DataGridHyperlinkColumn.ElementStyle>
+                            </DataGridHyperlinkColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="realm_tab" Header="Игровой мир">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="94*"/>
+                        <ColumnDefinition Width="13*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="655*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="check_realm_button" Content="Проверить" Grid.Column="3" HorizontalAlignment="Left" Margin="222,300,0,0" VerticalAlignment="Top" Width="75" Click="Real_info_click"/>
+                    <Label Content="Название:" Grid.Column="3" HorizontalAlignment="Left" Margin="9,38,0,0" VerticalAlignment="Top" Height="24" Width="102"/>
+                    <Label x:Name="realm_name_label" Content="Label" Grid.Column="3" HorizontalAlignment="Left" Margin="111,38,0,0" VerticalAlignment="Top" Width="186"/>
+                    <Label Content="Регион:" Grid.Column="3" HorizontalAlignment="Left" Margin="9,69,0,0" VerticalAlignment="Top" Height="24" Width="102"/>
+                    <Label x:Name="region_label" Content="Label" Grid.Column="3" HorizontalAlignment="Left" Margin="111,69,0,0" VerticalAlignment="Top" Width="186"/>
+                    <Label Content="Тайм-зона:" Grid.Column="3" HorizontalAlignment="Left" Margin="9,100,0,0" VerticalAlignment="Top" Height="24" Width="102"/>
+                    <Label x:Name="time_zone_label" Content="Label" Grid.Column="3" HorizontalAlignment="Left" Margin="111,100,0,0" VerticalAlignment="Top" Width="186"/>
+                    <Label Content="Язык:" Grid.Column="3" HorizontalAlignment="Left" Margin="9,131,0,0" VerticalAlignment="Top" Height="24" Width="102" />
+                    <Label x:Name="language_label" Content="Label" Grid.Column="3" HorizontalAlignment="Left" Margin="111,131,0,0" VerticalAlignment="Top" Width="186"/>
+                    <Label Content="Статус:" Grid.Column="3" HorizontalAlignment="Left" Margin="9,162,0,0" VerticalAlignment="Top" Height="24" Width="102" />
+                    <Label x:Name="status_label" Content="Label" Grid.Column="3" HorizontalAlignment="Left" Margin="111,162,0,0" VerticalAlignment="Top" Width="186"/>
+                </Grid>
+            </TabItem>
+            <TabItem  Header="Настройки">
+                <Grid Background="#FFE5E5E5">
+                    <ComboBox HorizontalAlignment="Left" Margin="26,46,0,0" VerticalAlignment="Top" Width="173"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="219,46,0,0" VerticalAlignment="Top" Width="129"/>
+
+                </Grid>
+            </TabItem>
+            <ComboBox Height="100" Width="120"/>
+        </TabControl>
+
+    </Grid>
+</Window>
