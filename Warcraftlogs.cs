@@ -29,5 +29,7 @@ namespace Warcraft
         public string Date_end { get; set; }
         public string Link { get; set; }
         public string Downloader { get; set; }
+        public int ID { get; set; }
     }
+
 }
